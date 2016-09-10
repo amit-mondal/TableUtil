@@ -18,6 +18,7 @@ To get the table data as a JSON, simply call `util.read()`
 #### delete - optional dictionary - include to allow user to delete rows
  - optional `confirmMessage` - a message string that is alerted each time a row is deleted
  - optional `minRows` - an integer for the minimum number of rows allowed in the table
+
 #### add - optional dictionary - include to allow user to add new rows
  - required `buttonSelector` - a string for the CSS selector of the button to be clicked in order to add new table rows, e.g. `"#myAddButton"`
  - either 
@@ -38,17 +39,22 @@ To get the table data as a JSON, simply call `util.read()`
 ## functions - optional dictionary
 
 #### onDelete(event)
- - Called after a row has been deleted, is passed the jQuery click event 
+ - Called after a row has been deleted, is passed the jQuery click event  
+
 #### beforeAdd(event)
  - Called before a new row is added, is passed the jQuery click event
  - If the function returns false, a new row will not be added
+
 #### onAdd(event)
  - Called after a row has been added, is passed the jQuery click event
+
 #### beforeAddReuse(rowClone)
  - Called before a reused row is added, is passed the cloned `<tr>` DOM element about to be added to the table
  - The function can modify and then return the `<tr>` DOM element, which will then be added to the table. For example, you might have `var r = rowClone; r.find("select").remove(); return r;` in the function body. This would remove all `select` tags before appending the row.
+
 #### onSortStart(event, ui)
  - Fed into the jQueryUI sortable function, called when the user begins sorting table rows. Is passed the jQuery event and UI objects
+
 #### onSortFinish(event, ui(
  - Fed into the jQueryUI sortable function, called when the user has finished sorting the table rows. Is passed the jQuery event and UI objects.
 
