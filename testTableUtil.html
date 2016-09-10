@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Test Dropdown
+		</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+		    rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+		<style>
+		  
+		</style>
+		<script type="text/javascript">
+		</script>
+	</head>
+	<body>
+	  <div class="panel panel-default">
+	    <div class="custom-table" id="customTable"></div>
+	  </div>
+	  <button id="read-button" class="btn btn-default">Read</button>
+	  <button id="add-button" class="btn btn-primary pull-right">Add</button>	
+	  <div class="panel panel-default">
+	    
+	<table id="policy-table" class="table table-striped table-editor custom-table-target">
+	    <thead class="panel-heading">
+	      <tr><th> Traffic Class </th>
+	      <th> Path Selector </th>
+	    </tr></thead>
+	      <tbody>
+		<tr>
+			<td>
+			  <select class="form-control traffic-class-select" id="traffic_class" name="traffic_class"><option value="tc01413689ef435ca866">test</option>
+	<option value="tc014a5812ac83b6e8c4">test_classw</option></select>
+			</td>
+			<td>
+			  <select class="form-control path-selector-select" id="path_selector" name="path_selector"><option value="ps010e6f3b80a1cf0c9d">test_selector</option>
+	<option value="ps012cca241df47135fb">test_selector_3_dyn</option>
+	<option value="ps0161de3219bc6b2c7f">test_selector_2</option></select>
+			</td>
+		</tr>
+	      </tbody>
+	  </table>	    	    
+	  </div>
+	  <script type="text/javascript" src="tool.js"></script>
+	  <script>
+	    var data = JSON.parse('{"add":{"buttonSelector":"#add-button","reuse":true},"read":[{"selector":".traffic-class-select","name":"traffic_class"},{"selector":".path-selector-select","name":"path_selector"}],"order":true,"delete":{"minRows":1,"confirmMessage":"hey!"}}');
+	    var functions = {
+	    onDelete : function(e) {alert ("Row deleted!");},
+	    onAdd : function(e) {alert("Row added!");},
+	    beforeAdd : function(e) {alert("Row about to be added! This function returned true"); return true;},
+	    beforeAddReuse : function(rowClone) {var r = rowClone; r.find("select").first().replaceWith("<b>Select Intentionally Removed by beforeAddReuse function</b>"); return r;}
+	    }
+	    //calling the constructor adds all the functionality automatically, including inserting delete buttons
+	    var util = new TableUtil("#policy-table", data, functions);
+	    //calling the read() method returns the table data as a JSON
+	    $("#read-button").click(function() { console.log(util.read()); });
+	  </script>
+	</body>
+</html>
